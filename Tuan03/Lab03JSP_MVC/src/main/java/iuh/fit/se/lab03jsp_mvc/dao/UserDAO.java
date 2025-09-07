@@ -12,7 +12,7 @@ import java.util.List;
 public class UserDAO {
 
     public void insertUser(User user) {
-        String sql = "INSERT INTO users(first_name, last_name, email, password, birthday, gender) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO users(first_name, last_name, email, password, date_of_birth, gender) VALUES (?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, user.getFirstName());
@@ -30,7 +30,7 @@ public class UserDAO {
 
     public List<User> getAllUsers() {
         List<User> list = new ArrayList<>();
-        String sql = "SELECT id, first_name, last_name, email, birthday, gender FROM users";
+        String sql = "SELECT id, first_name, last_name, email, date_of_birth, gender FROM users";
         try (Connection conn = DBConnection.getConnection();
              Statement st = conn.createStatement();
              ResultSet rs = st.executeQuery(sql)) {
@@ -39,7 +39,7 @@ public class UserDAO {
                 u.setFirstName(rs.getString("first_name"));
                 u.setLastName(rs.getString("last_name"));
                 u.setEmail(rs.getString("email"));
-                u.setDateOfBirth(rs.getString("birthday"));
+                u.setDateOfBirth(rs.getString("date_of_birth"));
                 u.setGender(rs.getString("gender"));
                 list.add(u);
             }
